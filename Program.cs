@@ -1,3 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
 namespace Modelowanie
 {
     internal static class Program
@@ -10,6 +17,7 @@ namespace Modelowanie
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }
