@@ -59,8 +59,13 @@ namespace Modelowanie
             double x = (line2.ComponentList[0] - line1.ComponentList[0]) / (line1.ComponentList[1] - line2.ComponentList[1]);
             double y = line1.ComponentList[1] * x + line1.ComponentList[0];
 
-
             return new MyPoint(x, y);
+        }
+
+        public static MyPoint MirrorByLine(MyLine a, MyLine b, MyPoint point)
+        {
+            MyPoint mid = FindIntersection( a,  b);
+            return new MyPoint(mid.X+(Math.Abs(mid.X)-Math.Abs(point.X)), mid.Y+(Math.Abs(mid.Y) - Math.Abs(point.Y)));
         }
 
         public Point ReflectPoint(Point point)

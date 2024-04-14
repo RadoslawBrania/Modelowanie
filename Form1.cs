@@ -48,7 +48,9 @@ namespace Modelowanie
             label1.Text += " distance: " + line.eq.FindClosestPoint(point) ;
             label1.Text += " position: " + line.WherePoint(point) ;
             label1.Text += " Czy Nale¿y: " + line.PointBelongs(point) ;
-            g.FillEllipse(brush, ClientSize.Width / 2 + (int)p1.X, ClientSize.Height / 2 - (int)p1.Y, 7, 7);
+            g.FillEllipse(brush, ClientSize.Width / 2 + (int)p1.X, ClientSize.Height / 2 - (int)p1.Y,3, 3);
+            MyPoint p2 = Equation.MirrorByLine(line, b, point);
+            g.FillEllipse(brush, ClientSize.Width / 2 + (int)p2.X, ClientSize.Height / 2 - (int)p2.Y, 5, 5);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -58,8 +60,7 @@ namespace Modelowanie
             Graphics g = CreateGraphics();
             Form1_DrawLine(g, line.start.Makepoint(), line.end.Makepoint());
            
-            
-
         }
+
     }
 }
