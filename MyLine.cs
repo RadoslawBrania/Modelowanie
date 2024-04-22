@@ -10,7 +10,7 @@ namespace Modelowanie
     {
         public MyPoint start = a;
         public MyPoint end = b;
-        public Equation eq = new();
+        public Equation eq = new(a,b);
         
 
 
@@ -42,6 +42,10 @@ namespace Modelowanie
             }
             return "prawo";
         }
+        public int Left(MyPoint point)
+        {
+            return (b.X - a.X) * (point.Y - a.Y) - (b.Y - a.Y) * (point.X - a.X) > 0 ? 1 : -1;
+        }
         public string PointBelongs(MyPoint point)
         {
             if (Math.Abs(eq.ComponentList[1] * point.X + eq.ComponentList[0] - point.Y) < 0.01)
@@ -49,6 +53,14 @@ namespace Modelowanie
                 return " Należy do odcinka";
             }
             return " Nie należy do odcinka";
+        }
+        public bool PointBelongsBool(MyPoint point)
+        {
+            if (Math.Abs(eq.ComponentList[1] * point.X + eq.ComponentList[0] - point.Y) < 0.01)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

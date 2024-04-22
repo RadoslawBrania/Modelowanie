@@ -15,6 +15,10 @@ namespace Modelowanie
         public double[] ComponentList;
 
         public Equation() { }
+        public Equation(double a,double b) {
+            ComponentList = new double[2];
+            ComponentList = [b,a];
+        }
         public Equation(MyLine line) {
 
                 double A = line.end.Y - line.start.Y;
@@ -27,6 +31,19 @@ namespace Modelowanie
                 ComponentList[0] = -C / B;
 
             }
+        public Equation(MyPoint p1, MyPoint p2)
+        {
+
+            double A = p2.Y - p1.Y;
+            double B = p1.X - p2.X;
+            double C = p1.Y * (p2.X - p1.X) - p1.X * (p2.Y - p1.Y);
+            ComponentList = new double[2];
+
+            ComponentList[1] = -A / B;
+
+            ComponentList[0] = -C / B;
+
+        }
 
         public string EquationOfLine(MyLine line)
         {
@@ -61,6 +78,14 @@ namespace Modelowanie
 
             return new MyPoint(x, y);
         }
+        public static MyPoint FindIntersection(Equation line1, Equation line2)
+        {
+            double x = (line2.ComponentList[0] - line1.ComponentList[0]) / (line1.ComponentList[1] - line2.ComponentList[1]);
+            double y = line1.ComponentList[1] * x + line1.ComponentList[0];
+
+            return new MyPoint(x, y);
+        }
+
 
         public static MyPoint MirrorByLine(MyLine a, MyLine b, MyPoint point)
         {
@@ -80,6 +105,16 @@ namespace Modelowanie
             return new Point(1000,500);
         }
 
-
+        public static MyTriangle MakeTriangle(Equation eq1, Equation eq2, Equation eq3) {
+            MyPoint[] point = [Equation.FindIntersection(eq1, eq2), Equation.FindIntersection(eq2, eq3), Equation.FindIntersection(eq3, eq1)];
+            MyTriangle triangle = new (point[0], point[1], point[2]);
+            return triangle;
+        }
+        public static double GetAngle(MyLine line1, MyLine line2)
+        {
+            // return Math.Atan2(-line1.eq.ComponentList[1] + line2.eq.ComponentList[1], line1.eq.ComponentList[1] * line2.eq.ComponentList[1] + 1);
+            //return line2.eq.ComponentList[1];
+            return Math.Acos((line1.eq.ComponentList[1] * line2.eq.ComponentList[1] + 1) / (Math.Sqrt(Math.Pow(line1.eq.ComponentList[1], 2) + 1) * Math.Sqrt(Math.Pow(line2.eq.ComponentList[1], 2) + 1)));
+        }
     }
 }
